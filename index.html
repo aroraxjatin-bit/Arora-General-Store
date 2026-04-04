@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Arora Store</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#2563eb">
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f5f9;
+margin:0;
+padding:10px;
+}
+
+.container{
+background:white;
+padding:15px;
+border-radius:12px;
+max-width:800px;
+margin:auto;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+}
+
+.menu{
+font-size:26px;
+cursor:pointer;
+}
+
+.logo{
+
+width:55px;
+height:55px;
+
+border-radius:14px;
+
+background:#2563eb;
+
+color:white;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:bold;
+
+}
+
+.header{
+
+display:flex;
+
+gap:10px;
+
+justify-content:center;
+
+margin-bottom:10px;
+
+}
+
+table{
+
+border-collapse:collapse;
+
+width:100%;
+
+}
+
+th,td{
+
+border:1px solid #e3e6ea;
+
+padding:10px;
+
+text-align:center;
+
+}
+
+th{
+
+background:#2563eb;
+
+color:white;
+
+}
+
+input{
+
+width:65px;
+
+padding:8px;
+
+font-size:16px;
+
+}
+
+.totalBox{
+
+margin-top:15px;
+
+font-size:22px;
+
+font-weight:bold;
+
+text-align:center;
+
+background:#eef2ff;
+
+padding:12px;
+
+border-radius:10px;
+
+}
+
+button{
+
+margin-top:10px;
+
+width:100%;
+
+padding:12px;
+
+font-size:16px;
+
+background:#2563eb;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+}
+
+.historyPanel{
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+right:0;
+
+width:90%;
+
+max-width:400px;
+
+height:100%;
+
+background:white;
+
+box-shadow:-3px 0 10px rgba(0,0,0,0.2);
+
+padding:15px;
+
+overflow:auto;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="historyPanel" id="historyPanel">
+
+<h3>History</h3>
+
+<div id="historyList"></div>
+
+<button onclick="closeHistory()">Close</button>
+
+</div>
+
+<div class="container">
+
+<div class="topbar">
+
+<div></div>
+
+<div class="menu" onclick="openHistory()">☰</div>
+
+</div>
+
+<div class="header">
+
+<div class="logo">AS</div>
+
+<div>
+
+<h2>Arora Store</h2>
+
+<small>Dairy Manager</small>
+
+</div>
+
+</div>
+
+Date:
+
+<input type="date" id="date">
+
+<table>
+
+<tr>
+
+<th>Product</th>
+
+<th>Price</th>
+
+<th>Qty</th>
+
+<th>Total</th>
+
+</tr>
+
+<tr><td>FMC 2 LTR</td><td class="price">791</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>FCM 1 LTR</td><td class="price">805</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>FCM 0.5 LTR</td><td class="price">817</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>BUFFALO</td><td class="price">869</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>TOND 1 LTR</td><td class="price">55.2</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>TOND 0.5 LTR</td><td class="price">56.2</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>DT</td><td class="price">50.50</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>COW</td><td class="price">58.50</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>CURD 400GM</td><td class="price">32.5</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>CURD 200GM</td><td class="price">19</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>CURD CUP</td><td class="price">90</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>CURD 1 KG</td><td class="price">74</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>BUTTERMILK</td><td class="price">9.5</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>PANEER</td><td class="price">81</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+<tr><td>BUTTER 100GM</td><td class="price">540</td><td><input type="number" oninput="calc()"></td><td class="total">0</td></tr>
+
+</table>
+
+<div class="totalBox">
+
+Daily Total Rs <span id="grandTotal">0</span>
+
+</div>
+
+<button onclick="saveData()">Save Day</button>
+
+<button onclick="downloadExcel()">Download Excel</button>
+
+<button onclick="resetData()">Reset</button>
+
+</div>
+
+<script>
+
+function calc(){
+
+let rows=document.querySelectorAll("table tr");
+
+let grand=0;
+
+for(let i=1;i<rows.length;i++){
+
+let price=parseFloat(rows[i].querySelector(".price").innerText);
+
+let qty=parseFloat(rows[i].querySelector("input").value)||0;
+
+let total=price*qty;
+
+rows[i].querySelector(".total").innerText=total.toFixed(2);
+
+grand+=total;
+
+}
+
+document.getElementById("grandTotal").innerText=grand.toFixed(2);
+
+}
+
+function saveData(){
+
+let date=document.getElementById("date").value;
+
+if(!date){alert("Select date");return;}
+
+let grand=document.getElementById("grandTotal").innerText;
+
+let record={date,grand};
+
+let old=localStorage.getItem("records");
+
+old=old?JSON.parse(old):[];
+
+old.push(record);
+
+localStorage.setItem("records",JSON.stringify(old));
+
+alert("Saved");
+
+}
+
+function openHistory(){
+
+let data=localStorage.getItem("records");
+
+let list=document.getElementById("historyList");
+
+list.innerHTML="";
+
+if(data){
+
+JSON.parse(data).forEach(r=>{
+
+list.innerHTML+=r.date+" → Rs "+r.grand+"<br>";
+
+});
+
+}
+
+document.getElementById("historyPanel").style.display="block";
+
+}
+
+function closeHistory(){
+
+document.getElementById("historyPanel").style.display="none";
+
+}
+
+function downloadExcel(){
+
+let data=localStorage.getItem("records");
+
+if(!data){return;}
+
+let arr=[["Date","Total"]];
+
+JSON.parse(data).forEach(r=>{
+
+arr.push([r.date,r.grand]);
+
+});
+
+let wb=XLSX.utils.book_new();
+
+let ws=XLSX.utils.aoa_to_sheet(arr);
+
+XLSX.utils.book_append_sheet(wb,ws,"Records");
+
+XLSX.writeFile(wb,"Dairy.xlsx");
+
+}
+
+function resetData(){
+
+document.querySelectorAll("input").forEach(i=>i.value="");
+
+calc();
+
+}
+
+if('serviceWorker' in navigator){
+
+navigator.serviceWorker.register('service-worker.js');
+
+}
+
+</script>
+
+</body>
+</html>
